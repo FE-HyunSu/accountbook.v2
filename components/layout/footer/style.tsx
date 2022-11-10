@@ -1,17 +1,6 @@
 import styled from 'styled-components';
 
-const Footer = () => {
-  return (
-    <>
-      <FooterBox>
-        <p>KHS. ALL RIGHT RESERVED.</p>
-      </FooterBox>
-    </>
-  );
-};
-export default Footer;
-
-const FooterBox = styled.footer`
+export const FooterBox = styled.footer`
   display: block;
   height: 5rem;
   background-color: #fff;

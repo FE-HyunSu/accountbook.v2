@@ -1,19 +1,6 @@
 import styled from 'styled-components';
 
-const Header = () => {
-  return (
-    <>
-      <HeaderBox>
-        <h1>
-          <strong>🥸 React Study Group</strong>
-        </h1>
-      </HeaderBox>
-    </>
-  );
-};
-export default Header;
-
-const HeaderBox = styled.header`
+export const HeaderBox = styled.header`
   display: block;
   position: fixed;
   top: 0;

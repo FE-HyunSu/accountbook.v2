@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../styles/global-style';
 import { theme } from '../styles/theme';
-import Header from '../components/common/Header';
-import Footer from '../components/common/Footer';
+import Header from '../components/layout/header';
+import Footer from '../components/layout/footer';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
