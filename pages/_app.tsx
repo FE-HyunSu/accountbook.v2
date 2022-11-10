@@ -3,6 +3,8 @@ import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../styles/global-style';
 import { theme } from '../styles/theme';
+import Header from '../components/common/Header';
+import Footer from '../components/common/Footer';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -17,7 +19,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
+        <Header />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </>
   );
