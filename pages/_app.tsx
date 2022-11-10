@@ -9,7 +9,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>boilerplate</title>
+        <meta property="og:title" content="AccountBook" />
+        <meta property="og:description" content="React study group accountBook" />
+        <meta property="og:image" content="/preview.png" />
+        <link rel="icon" href="/favicon.ico" />
+        <title>🥸 AccountBook</title>
       </Head>
       <GlobalStyle />
       <ThemeProvider theme={theme}>
