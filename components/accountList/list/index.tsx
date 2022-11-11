@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import AccountItem from '../item';
-import { app, database } from '../firebaseConfig';
+import AccountItem from '../item/index';
+import { SectionBox } from './style';
+import { app, database } from '../../../firebaseConfig';
 import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 const AccountList = () => {
   const dbInstanceUserList = collection(database, 'userList');
-  const [memberListAll, setMemberListAll] = useState([]);
-  const [memberList, setMemberList] = useState([]);
+  const [memberListAll, setMemberListAll] = useState<any>([]);
+  const [memberList, setMemberList] = useState<any>([]);
   const dbInstanceAccountList = collection(database, 'accountList');
-  const [accountList, setAccountList] = useState([]);
-  const [accountListAll, setAccountListAll] = useState([]);
-  const [totalPrice, setTotalPrice] = useState('0');
-  const [nbbang, setNbbang] = useState('0');
-  const [allCheck, setAllCheck] = useState(true);
+  const [accountList, setAccountList] = useState<any>([]);
+  const [accountListAll, setAccountListAll] = useState<any>([]);
+  const [totalPrice, setTotalPrice] = useState<string>('0');
+  const [nbbang, setNbbang] = useState<string>('0');
+  const [allCheck, setAllCheck] = useState<boolean>(true);
 
   // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
-    let getUserList = [];₩
-    let getAccountList = [];
+    let getUserList: object[] = [];
+    let getAccountList: object[] = [];
     await getDocs(dbInstanceUserList).then((data) => {
-      getUserList = data.docs.map((item) => {
+      getUserList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setMemberListAll(getUserList);
       setMemberList(getUserList);
     });
     await getDocs(dbInstanceAccountList).then((data) => {
-      getAccountList = data.docs.map((item) => {
+      getAccountList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setAccountListAll(getAccountList);
@@ -36,23 +37,23 @@ const AccountList = () => {
   };
 
   // memberList click effect.
-  const btnActive = (e) => {
+  const btnActive = (e: any) => {
     const btnGroup = e.target.parentNode;
-    btnGroup.querySelectorAll('button').forEach((item) => {
+    btnGroup.querySelectorAll('button').forEach((item: any) => {
       item.classList.remove('active');
     });
     e.target.classList.add('active');
   };
 
   // member id로 account 목록을 filter 하는 함수.
-  const targetFilter = (filterId, e) => {
+  const targetFilter = (filterId: number, e: any) => {
     btnActive(e);
     if (filterId === -1) {
       setAccountList(accountListAll);
       totalPriceCalculation(memberList, accountListAll);
       setAllCheck(true);
     } else {
-      const returnList = accountListAll.filter((item) => {
+      const returnList = accountListAll.filter((item: any) => {
         return Number(item.targetId) === Number(filterId);
       });
       setAccountList(returnList);
@@ -71,7 +72,7 @@ const AccountList = () => {
   // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (userId: number) => {
     let returnName = '(이름없음)';
-    memberList.forEach((item) => {
+    memberList.forEach((item: any) => {
       if (Number(item.id) === userId) returnName = item.userName;
     });
 
@@ -79,17 +80,17 @@ const AccountList = () => {
   };
 
   // total 잔액을 표기하는 함수.
-  const totalPriceCalculation = (user, account) => {
+  const totalPriceCalculation = (user: any, account: any) => {
     let returnPrice = 0;
-    account.forEach((item) => (returnPrice += Number(item.calculation)));
+    account.forEach((item: any) => (returnPrice += Number(item.calculation)));
     setTotalPrice(addComa(returnPrice));
     setNbbang(addComa(returnPrice / user.length));
   };
 
   // target 잔액을 표기하는 함수.
-  const priceCalculation = (filterAccountList) => {
+  const priceCalculation = (filterAccountList: any) => {
     let returnPrice = 0;
-    filterAccountList.forEach((item) => (returnPrice += Number(item.calculation)));
+    filterAccountList.forEach((item: any) => (returnPrice += Number(item.calculation)));
     setTotalPrice(addComa(returnPrice));
   };
 
@@ -112,7 +113,7 @@ const AccountList = () => {
               all
             </button>
             {memberList &&
-              memberList.map((item, idx) => {
+              memberList.map((item: any, idx: number) => {
                 return (
                   <button
                     key={idx}
@@ -133,8 +134,8 @@ const AccountList = () => {
         <ul>
           {accountList &&
             accountList
-              .sort((a, b) => new Date(b.dateTime) - new Date(a.dateTime))
-              .map((item, idx) => {
+              .sort((a: any, b: any) => +new Date(b.dateTime) - +new Date(a.dateTime))
+              .map((item: any, idx: number) => {
                 return (
                   <li key={idx}>
                     <AccountItem
@@ -151,3 +152,5 @@ const AccountList = () => {
     </>
   );
 };
+
+export default AccountList;

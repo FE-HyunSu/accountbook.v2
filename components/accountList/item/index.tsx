@@ -29,3 +29,5 @@ const AccountItem = ({ dateTime, accountName, price, description }: accountItems
     </>
   );
 };
+
+export default AccountItem;
