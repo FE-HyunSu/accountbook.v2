@@ -17,7 +17,7 @@ export const AccountCard = styled.dl`
   animation: ${viewMotion} 0.3s forwards linear alternate;
   opacity: 0;
   &:hover {
-    padding: 0 4rem;
+    padding: 0 1rem;
     background-color: #f4f4f4;
     transform: scale(1.05);
     @media only screen and (max-width: 992px) {
