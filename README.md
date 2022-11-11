@@ -1,10 +1,12 @@
 ## 💵 리액트 스터디 모임 정산 페이지 (ver2)
 
+### 🏂 URL 
+- page : https://tubular-cocada-39cf07.netlify.app
+
 ### 👨‍🔧 개요
 
-- 기존 작업했던 Accountbook를 project 리팩토링 + update.
-- typescript 적용.
-- 파일구조 정리.
+- 기존 react nextjs로 작업했던 Accountbook를 project를 Typescript 버전으로 migration.
+- 폴더 및 파일구조 정리.
 
 ### 🪬 내용
 
