@@ -51,7 +51,7 @@ export const HeaderBox = styled.header`
   & + main {
     width: 100%;
     min-height: calc(100vh - 10rem);
-    margin: 4rem auto 0;
+    margin: 5rem auto 0;
     overflow: hidden;
   }
 `;

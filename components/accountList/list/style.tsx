@@ -9,10 +9,10 @@ export const SectionBox = styled.section`
     text-align: center;
     strong {
       display: inline-block;
+      padding-bottom: 0.5rem;
       font-weight: 700;
-      font-size: 4rem;
+      font-size: 3.8rem;
       color: #111;
-      letter-spacing: -0.1rem;
       transition: 0.3s;
       &:after {
         content: '원';
@@ -77,7 +77,7 @@ export const SectionBox = styled.section`
           font-weight: 500;
           font-size: 1.2rem;
           color: #fff;
-          line-height: 1;
+          line-height: 1.2;
           text-indent: 0;
         }
       }
@@ -93,7 +93,7 @@ export const SectionBox = styled.section`
           font-weight: 500;
           font-size: 1.2rem;
           color: #fff;
-          line-height: 1;
+          line-height: 1.2;
           text-indent: 0;
         }
       }

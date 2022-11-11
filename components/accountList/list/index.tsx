@@ -79,11 +79,27 @@ const AccountList = () => {
     return returnName;
   };
 
+  // countEffect 함수.
+  const countEffect = (num: number) => {
+    let viewCount = 0;
+    let gap = (num / 30) * (num > 0 ? 1 : -1);
+
+    let countInterval = setInterval(() => {
+      if (viewCount >= Math.abs(num)) {
+        clearInterval(countInterval);
+        setTotalPrice(addComa(num));
+      } else {
+        viewCount = viewCount + gap;
+        setTotalPrice(addComa(Math.floor(viewCount)));
+      }
+    }, 16);
+  };
+
   // total 잔액을 표기하는 함수.
   const totalPriceCalculation = (user: any, account: any) => {
     let returnPrice = 0;
     account.forEach((item: any) => (returnPrice += Number(item.calculation)));
-    setTotalPrice(addComa(returnPrice));
+    countEffect(returnPrice);
     setNbbang(addComa(returnPrice / user.length));
   };
 
@@ -91,7 +107,7 @@ const AccountList = () => {
   const priceCalculation = (filterAccountList: any) => {
     let returnPrice = 0;
     filterAccountList.forEach((item: any) => (returnPrice += Number(item.calculation)));
-    setTotalPrice(addComa(returnPrice));
+    countEffect(returnPrice);
   };
 
   useEffect(() => {
@@ -125,7 +141,7 @@ const AccountList = () => {
                 );
               })}
             <button type="button" className="btn-expenditure" onClick={(e) => targetFilter(0, e)}>
-              all
+              지출
             </button>
           </p>
         </div>
@@ -143,6 +159,7 @@ const AccountList = () => {
                       accountName={returnUserName(item.targetId)}
                       price={item.calculation}
                       description={item.description}
+                      itemIndex={idx}
                     />
                   </li>
                 );
