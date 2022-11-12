@@ -17,4 +17,4 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-export const database = getFirestore(app); // Firestore 데이터베이스를 사용할 것이기 때문에 Firestore 함수도 import 함.
+export const database = getFirestore(app);

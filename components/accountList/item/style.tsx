@@ -1,9 +1,9 @@
 import styled, { keyframes } from 'styled-components';
 
 const viewMotion = keyframes`
-  0%{transform:translate(-100px); opacity:0;}
-  70%{transform:translate(10px); opacity:1;}
-  100%{transform:translate(0px); opacity:1;}
+  0%{transform:translate(-70px) scale(1, .3); opacity:0;}
+  70%{transform:translate(10px) scale(1, .3); opacity:1;}
+  100%{transform:translate(0px) scale(1, 1); opacity:1;}
 `;
 
 export const AccountCard = styled.dl`
