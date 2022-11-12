@@ -48,18 +48,21 @@ const AccountList = () => {
   // member id로 account 목록을 filter 하는 함수.
   const targetFilter = (filterId: number, e: any) => {
     btnActive(e);
-    if (filterId === -1) {
-      setAccountList(accountListAll);
-      totalPriceCalculation(memberList, accountListAll);
-      setAllCheck(true);
-    } else {
-      const returnList = accountListAll.filter((item: any) => {
-        return Number(item.targetId) === Number(filterId);
-      });
-      setAccountList(returnList);
-      priceCalculation(returnList);
-      setAllCheck(false);
-    }
+    setAccountList([]);
+    setTimeout(() => {
+      if (filterId === -1) {
+        setAccountList(accountListAll);
+        totalPriceCalculation(memberList, accountListAll);
+        setAllCheck(true);
+      } else {
+        const returnList = accountListAll.filter((item: any) => {
+          return Number(item.targetId) === Number(filterId);
+        });
+        setAccountList(returnList);
+        priceCalculation(returnList);
+        setAllCheck(false);
+      }
+    }, 16);
   };
 
   // 금액 단위로 숫자를 콤마 찍어서 return.
@@ -75,7 +78,6 @@ const AccountList = () => {
     memberList.forEach((item: any) => {
       if (Number(item.id) === userId) returnName = item.userName;
     });
-
     return returnName;
   };
 
