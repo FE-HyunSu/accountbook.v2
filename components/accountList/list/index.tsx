@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import AccountItem from '../item/index';
 import { SectionBox } from './style';
-import { app, database } from '../../../firebaseConfig';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { getData, setData } from '../../../firebase/firestore';
 
 const AccountList = () => {
-  const dbInstanceUserList = collection(database, 'userList');
   const [memberListAll, setMemberListAll] = useState<any>([]);
   const [memberList, setMemberList] = useState<any>([]);
-  const dbInstanceAccountList = collection(database, 'accountList');
   const [accountList, setAccountList] = useState<any>([]);
   const [accountListAll, setAccountListAll] = useState<any>([]);
   const [totalPrice, setTotalPrice] = useState<string>('0');
@@ -19,21 +16,24 @@ const AccountList = () => {
   const getListAll = async () => {
     let getUserList: object[] = [];
     let getAccountList: object[] = [];
-    await getDocs(dbInstanceUserList).then((data) => {
+    await getData('userList').then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setMemberListAll(getUserList);
-      setMemberList(getUserList);
     });
-    await getDocs(dbInstanceAccountList).then((data) => {
+
+    await getData('accountList').then((data) => {
       getAccountList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setAccountListAll(getAccountList);
-      setAccountList(getAccountList);
     });
+
+    setMemberList(getUserList);
+    setAccountList(getAccountList);
     totalPriceCalculation(getUserList, getAccountList);
+    setAllCheck(true);
   };
 
   // memberList click effect.
