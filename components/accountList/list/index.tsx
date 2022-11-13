@@ -30,8 +30,8 @@ const AccountList = () => {
       setAccountListAll(getAccountList);
     });
 
-    setMemberList(getUserList);
-    setAccountList(getAccountList);
+    setMemberList(getUserList); // userList set.
+    setAccountList(getAccountList); // accountList set.
     totalPriceCalculation(getUserList, getAccountList);
     setAllCheck(true);
   };
