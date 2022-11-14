@@ -3,19 +3,32 @@ import AccountItem from '../item/index';
 import { SectionBox } from './style';
 import { getData, setData } from '../../../firebase/firestore';
 
+export type memberListInit = {
+  id: number;
+  userName?: string;
+  imgUrl?: string;
+};
+
+export type accountListInit = {
+  targetId: number;
+  dateTime: string;
+  description?: string;
+  calculation: number;
+};
+
 const AccountList = () => {
-  const [memberListAll, setMemberListAll] = useState<any>([]);
-  const [memberList, setMemberList] = useState<any>([]);
-  const [accountList, setAccountList] = useState<any>([]);
-  const [accountListAll, setAccountListAll] = useState<any>([]);
+  const [memberListAll, setMemberListAll] = useState<memberListInit[]>([]);
+  const [memberList, setMemberList] = useState<memberListInit[]>([]);
+  const [accountList, setAccountList] = useState<accountListInit[]>([]);
+  const [accountListAll, setAccountListAll] = useState<accountListInit[]>([]);
   const [totalPrice, setTotalPrice] = useState<string>('0');
   const [nbbang, setNbbang] = useState<string>('0');
   const [allCheck, setAllCheck] = useState<boolean>(true);
 
   // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
-    let getUserList: object[] = [];
-    let getAccountList: object[] = [];
+    let getUserList: Array<memberListInit> = [];
+    let getAccountList: Array<accountListInit> = [];
     await getData('userList').then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
