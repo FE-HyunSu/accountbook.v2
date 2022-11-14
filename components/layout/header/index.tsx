@@ -6,6 +6,9 @@ const Header = () => {
       <HeaderBox>
         <h1>
           <strong>🥸 React Study Group</strong>
+          <a href="https://reliable-florentine-21f16f.netlify.app" target="_blank">
+            ADMIN
+          </a>
         </h1>
       </HeaderBox>
     </>

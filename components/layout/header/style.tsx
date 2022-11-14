@@ -27,7 +27,7 @@ export const HeaderBox = styled.header`
       color: #1a1a1a;
       letter-spacing: 0.1rem;
       background-color: #ffa5ac;
-      text-align: center;
+      text-align: left;
       text-transform: uppercase;
       transition: 0.2s;
       transform-origin: 50% 50%;
@@ -35,12 +35,6 @@ export const HeaderBox = styled.header`
         display: block;
         font-size: 1.2rem;
         color: #999;
-      }
-      &:hover {
-        letter-spacing: 0.5rem;
-        @media only screen and (max-width: 992px) {
-          letter-spacing: 0.1rem;
-        }
       }
     }
   }
@@ -53,5 +47,13 @@ export const HeaderBox = styled.header`
     min-height: calc(100vh - 10rem);
     margin: 5rem auto 0;
     overflow: hidden;
+  }
+  a {
+    display: block;
+    padding: 0 1.5rem;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: #1a1a1a;
+    text-decoration: none;
   }
 `;
