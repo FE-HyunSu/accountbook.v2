@@ -25,16 +25,24 @@ export const SectionBox = styled.section`
         }
       }
     }
+    p {
+      margin-top: -1rem;
+      padding-bottom: 1rem;
+      transition: 0.4s;
+    }
     em {
       display: block;
-      padding-bottom: 0;
+      padding-bottom: 1rem;
       font-size: 1.4rem;
       text-align: center;
       transition: 0.3s;
       opacity: 0;
       &.active {
-        padding-bottom: 1rem;
         opacity: 0.4;
+        & + p {
+          margin-top: 0;
+          padding-bottom: 0;
+        }
       }
       &:before {
         content: '(';
