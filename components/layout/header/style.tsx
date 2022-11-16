@@ -23,9 +23,8 @@ export const HeaderBox = styled.header`
       margin: 0;
       padding: 2rem 1.5rem;
       font-weight: 300;
-      font-size: 1.4rem;
+      font-size: 1.2rem;
       color: #1a1a1a;
-      letter-spacing: 0.1rem;
       background-color: #ffa5ac;
       text-align: left;
       text-transform: uppercase;
