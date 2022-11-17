@@ -5,14 +5,13 @@
 
 ### 👨‍🔧 개요
 
+- 정산내역 기록용으로 생성.
+- 카뱅 UI를 참고함.
 - 기존 react nextjs로 작업했던 Accountbook를 project를 Typescript 버전으로 migration.
-- Intersection Observer API.
-- 폴더 및 파일구조 정리.
 
 ### 🪬 내용
 
-- 정산내역 기록용으로 생성.
-- 카뱅 UI를 참고함.
+- Intersection Observer API.
 - `React` `NextJS` `Typescript` `Netlify` `firebase` `firestore`
 
 ### 🧾 데이터 관리
