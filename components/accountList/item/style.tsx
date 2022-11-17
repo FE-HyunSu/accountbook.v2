@@ -14,12 +14,8 @@ export const AccountCard = styled.dl`
   font-size: 1.4rem;
   transition: 0.2s;
   box-sizing: border-box;
-  animation-delay: ${({ delay }: { delay: number }) => delay * 0.1 + `s`} !important;
   &.active {
     animation: ${viewMotion} 0.3s forwards linear alternate;
-  }
-  &.fix {
-    animation-delay: 0s !important;
   }
   opacity: 0;
   &:hover {
