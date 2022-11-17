@@ -1,4 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const UserIconMotion = keyframes`
+  0%{width:.1rem; height:.1rem;}
+  100%{width:4rem; height:4rem;}
+`;
 
 export const SectionBox = styled.section`
   display: block;
@@ -59,14 +64,15 @@ export const SectionBox = styled.section`
     }
     button {
       display: inline-block;
-      width: 4rem;
-      height: 4rem;
+      width: 0.1rem;
+      height: 0.1rem;
       margin-right: 0rem;
       background-size: 100% auto;
       border-radius: 100%;
       text-indent: -999rem;
       border: 0rem solid #fff;
       transition: 0.2s;
+      animation: ${UserIconMotion} 0.5s forwards;
       opacity: 1;
       &.active {
         border: 0.1rem solid #fff;

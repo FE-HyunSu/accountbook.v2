@@ -148,7 +148,10 @@ const AccountList = () => {
                 return (
                   <button
                     key={idx}
-                    style={{ backgroundImage: `url(${item.userImg})` }}
+                    style={{
+                      backgroundImage: `url(${item.userImg})`,
+                      animationDelay: idx * 0.1 + `s`,
+                    }}
                     onClick={(e) => targetFilter(item.id, e)}
                   >
                     {item.userName}
