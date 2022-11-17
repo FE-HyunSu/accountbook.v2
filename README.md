@@ -6,13 +6,15 @@
 ### 👨‍🔧 개요
 
 - 기존 react nextjs로 작업했던 Accountbook를 project를 Typescript 버전으로 migration.
+- Firebase 로그인 적용.
+- Recoil로 상태관리 적용.
 - 폴더 및 파일구조 정리.
 
 ### 🪬 내용
 
 - 정산내역 기록용으로 생성.
 - 카뱅 UI를 참고함.
-- `React` `NextJS` `Typescript` `Netlify` `firebase` `firestore`
+- `React` `NextJS` `Typescript` `Netlify` `firebase` `firestore` `Recoil`
 
 ### 🧾 데이터 관리
 
