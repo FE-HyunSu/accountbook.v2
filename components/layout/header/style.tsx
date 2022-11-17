@@ -49,12 +49,11 @@ export const HeaderBox = styled.header`
   }
   a {
     display: block;
-    margin-right: 1.5rem;
+    margin-right: 0.3rem;
     padding: 0.8rem 1.2rem;
     font-weight: 400;
     font-size: 1.2rem;
     color: #cd5c5c;
-    background-color: #f99999;
     text-decoration: none;
     border-radius: 0.4rem;
   }
