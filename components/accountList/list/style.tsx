@@ -31,6 +31,7 @@ export const SectionBox = styled.section`
       }
     }
     p {
+      height: 4.2rem;
       margin-top: -1rem;
       padding-bottom: 1rem;
       transition: 0.4s;
