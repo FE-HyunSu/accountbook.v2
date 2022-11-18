@@ -26,7 +26,7 @@ const AccountItem = ({ dateTime, accountName, price, description, itemIndex }: a
   };
 
   useEffect(() => {
-    setMotionDelay(itemIndex * 0.05);
+    setMotionDelay(itemIndex * 0.03);
   }, []);
 
   return (

@@ -150,7 +150,7 @@ const AccountList = () => {
                     key={idx}
                     style={{
                       backgroundImage: `url(${item.userImg})`,
-                      animationDelay: idx * 0.1 + `s`,
+                      animationDelay: idx * 0.07 + `s`,
                     }}
                     onClick={(e) => targetFilter(item.id, e)}
                   >
