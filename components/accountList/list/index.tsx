@@ -50,16 +50,16 @@ const AccountList = () => {
   };
 
   // memberList click effect.
-  const btnActive = (e: any) => {
-    const btnGroup = e.target.parentNode;
-    btnGroup.querySelectorAll('button').forEach((item: any) => {
+  const btnActive = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const btnGroup = e.currentTarget.parentNode;
+    btnGroup?.querySelectorAll('button').forEach((item) => {
       item.classList.remove('active');
     });
-    e.target.classList.add('active');
+    e.currentTarget.classList.add('active');
   };
 
   // member id로 account 목록을 filter 하는 함수.
-  const targetFilter = (filterId: number, e: any) => {
+  const targetFilter = (filterId: number, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     btnActive(e);
     setAccountList([]);
     setTimeout(() => {
