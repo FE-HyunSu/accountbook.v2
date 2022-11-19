@@ -68,6 +68,7 @@ export const SectionBox = styled.section`
       width: 0.1rem;
       height: 0.1rem;
       margin-right: 0rem;
+      background-color: rgba(255, 255, 255, 0.3);
       background-size: 100% auto;
       border-radius: 100%;
       text-indent: -999rem;
