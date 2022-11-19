@@ -68,8 +68,8 @@ const AccountList = () => {
         totalPriceCalculation(memberList, accountListAll);
         setAllCheck(true);
       } else {
-        const returnList = accountListAll.filter((item: any) => {
-          return Number(item.targetId) === Number(filterId);
+        const returnList = accountListAll.filter((item: accountListInit) => {
+          return item.targetId === Number(filterId);
         });
         setAccountList(returnList);
         priceCalculation(returnList);
@@ -87,8 +87,8 @@ const AccountList = () => {
 
   // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (userId: number) => {
-    let returnName = '(이름없음)';
-    memberList.forEach((item: any) => {
+    let returnName: string | undefined = '(이름없음)';
+    memberList.forEach((item: memberListInit) => {
       if (Number(item.id) === userId) returnName = item.userName;
     });
     return returnName;
@@ -111,11 +111,11 @@ const AccountList = () => {
   };
 
   // total 잔액을 표기하는 함수.
-  const totalPriceCalculation = (user: any, account: any) => {
-    let returnPrice = 0;
+  const totalPriceCalculation = (user: object, account: any) => {
+    let returnPrice: number = 0;
     account.forEach((item: any) => (returnPrice += Number(item.calculation)));
     countEffect(returnPrice);
-    setNbbang(addComa(returnPrice / user.length));
+    setNbbang(addComa(returnPrice / Object.keys(user).length));
   };
 
   // target 잔액을 표기하는 함수.
