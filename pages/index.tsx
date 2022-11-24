@@ -1,4 +1,4 @@
-import AccountList from '../components/accountList/list/index';
+import AccountList from "../components/accountList/list/index";
 
 const Index = () => {
   return (

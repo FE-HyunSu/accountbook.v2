@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import AccountItem from '../item/index';
-import { SectionBox } from './style';
-import { getData, setData } from '../../../firebase/firestore';
+import React, { useState, useEffect } from "react";
+import AccountItem from "../item/index";
+import { SectionBox } from "./style";
+import { getData, setData } from "../../../firebase/firestore";
 
 export type memberListInit = {
   id: number;
@@ -21,22 +21,22 @@ const AccountList = () => {
   const [memberList, setMemberList] = useState<memberListInit[]>([]);
   const [accountList, setAccountList] = useState<accountListInit[]>([]);
   const [accountListAll, setAccountListAll] = useState<accountListInit[]>([]);
-  const [totalPrice, setTotalPrice] = useState<string>('0');
-  const [nbbang, setNbbang] = useState<string>('0');
+  const [totalPrice, setTotalPrice] = useState<string>("0");
+  const [nbbang, setNbbang] = useState<string>("0");
   const [allCheck, setAllCheck] = useState<boolean>(true);
 
   // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
     let getUserList: Array<memberListInit> = [];
     let getAccountList: Array<accountListInit> = [];
-    await getData('userList').then((data) => {
+    await getData("userList").then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setMemberListAll(getUserList);
     });
 
-    await getData('accountList').then((data) => {
+    await getData("accountList").then((data) => {
       getAccountList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
@@ -52,14 +52,17 @@ const AccountList = () => {
   // memberList click effect.
   const btnActive = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const btnGroup = e.currentTarget.parentNode;
-    btnGroup?.querySelectorAll('button').forEach((item) => {
-      item.classList.remove('active');
+    btnGroup?.querySelectorAll("button").forEach((item) => {
+      item.classList.remove("active");
     });
-    e.currentTarget.classList.add('active');
+    e.currentTarget.classList.add("active");
   };
 
   // member id로 account 목록을 filter 하는 함수.
-  const targetFilter = (filterId: number, e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const targetFilter = (
+    filterId: number,
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
     btnActive(e);
     setAccountList([]);
     setTimeout(() => {
@@ -80,14 +83,14 @@ const AccountList = () => {
 
   // 금액 단위로 숫자를 콤마 찍어서 return.
   const addComa = (number: number) => {
-    const numberComa = number.toString().split('.');
-    numberComa[0] = numberComa[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return numberComa.join('.');
+    const numberComa = number.toString().split(".");
+    numberComa[0] = numberComa[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return numberComa.join(".");
   };
 
   // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (userId: number) => {
-    let returnName: string | undefined = '(이름없음)';
+    let returnName: string | undefined = "(이름없음)";
     memberList.forEach((item: memberListInit) => {
       if (Number(item.id) === userId) returnName = item.userName;
     });
@@ -121,7 +124,9 @@ const AccountList = () => {
   // target 잔액을 표기하는 함수.
   const priceCalculation = (filterAccountList: any) => {
     let returnPrice = 0;
-    filterAccountList.forEach((item: any) => (returnPrice += Number(item.calculation)));
+    filterAccountList.forEach(
+      (item: any) => (returnPrice += Number(item.calculation))
+    );
     countEffect(returnPrice);
   };
 
@@ -158,7 +163,11 @@ const AccountList = () => {
                   </button>
                 );
               })}
-            <button type="button" className="btn-expenditure" onClick={(e) => targetFilter(0, e)}>
+            <button
+              type="button"
+              className="btn-expenditure"
+              onClick={(e) => targetFilter(0, e)}
+            >
               지출
             </button>
           </p>
@@ -168,7 +177,10 @@ const AccountList = () => {
         <ul>
           {accountList &&
             accountList
-              .sort((a: any, b: any) => +new Date(b.dateTime) - +new Date(a.dateTime))
+              .sort(
+                (a: any, b: any) =>
+                  +new Date(b.dateTime) - +new Date(a.dateTime)
+              )
               .map((item: any, idx: number) => {
                 return (
                   <li key={idx}>

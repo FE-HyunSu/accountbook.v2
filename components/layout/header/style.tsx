@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { media } from '../../../styles/theme';
 
 export const HeaderBox = styled.header`
   display: block;

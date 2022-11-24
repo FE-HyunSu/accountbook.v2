@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const UserIconMotion = keyframes`
   0%{width:.1rem; height:.1rem;}
@@ -20,7 +20,7 @@ export const SectionBox = styled.section`
       color: #111;
       transition: 0.3s;
       &:after {
-        content: '원';
+        content: "원";
         font-weight: 700;
       }
       &:hover {
@@ -51,10 +51,10 @@ export const SectionBox = styled.section`
         }
       }
       &:before {
-        content: '(';
+        content: "(";
       }
       &:after {
-        content: '원)';
+        content: "원)";
       }
       &:hover {
         transform: scale(1.1, 1.1);
@@ -86,7 +86,7 @@ export const SectionBox = styled.section`
         background-color: #999;
         opacity: 0.7;
         &:before {
-          content: 'ALL';
+          content: "ALL";
           display: block;
           position: absolute;
           width: 100%;
@@ -102,7 +102,7 @@ export const SectionBox = styled.section`
         background-color: #999;
         opacity: 0.7;
         &:before {
-          content: '지출';
+          content: "지출";
           display: block;
           position: absolute;
           width: 100%;

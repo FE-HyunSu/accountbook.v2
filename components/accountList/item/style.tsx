@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes } from "styled-components";
 
 const viewMotion = keyframes`
   0%{transform:translate(-70px) scale(1, .3); opacity:0;}
@@ -55,7 +55,7 @@ export const AccountCard = styled.dl`
     &.plus {
       color: #0a7ec6;
       &:before {
-        content: '+';
+        content: "+";
       }
     }
     &.minus {

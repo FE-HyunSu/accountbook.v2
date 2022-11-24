@@ -1,5 +1,5 @@
-import { database } from './firebaseConfig';
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { database } from "./firebaseConfig";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 
 const getData = async (collectionName: string) => {
   return await getDocs(collection(database, collectionName));
