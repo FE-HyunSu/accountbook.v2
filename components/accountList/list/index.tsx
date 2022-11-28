@@ -61,8 +61,8 @@ const AccountList = () => {
 
   // member id로 account 목록을 filter 하는 함수.
   const targetFilter = (
-    filterId: number,
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    filterId: number
   ) => {
     btnActive(e);
     setAccountList([]);
@@ -71,6 +71,13 @@ const AccountList = () => {
         setAccountList(accountListAll);
         totalPriceCalculation(memberList, accountListAll);
         setAllCheck(true);
+      } else if (filterId === -2) {
+        const returnList = accountListAll.filter((item: accountListInit) => {
+          return item.targetId === undefined;
+        });
+        setAccountList(returnList);
+        totalPriceCalculation(memberList, returnList);
+        setAllCheck(false);
       } else {
         const returnList = accountListAll.filter((item: accountListInit) => {
           return item.targetId === Number(filterId);
@@ -143,7 +150,7 @@ const AccountList = () => {
             <button
               type="button"
               className="btn-listall active"
-              onClick={(e) => targetFilter(-1, e)}
+              onClick={(e) => targetFilter(e, -1)}
             >
               all
             </button>
@@ -156,7 +163,7 @@ const AccountList = () => {
                       backgroundImage: `url(${item.userImg})`,
                       animationDelay: idx * 0.07 + `s`,
                     }}
-                    onClick={(e) => targetFilter(item.userId, e)}
+                    onClick={(e) => targetFilter(e, item.userId)}
                   >
                     {item.userName}
                   </button>
@@ -165,7 +172,7 @@ const AccountList = () => {
             <button
               type="button"
               className="btn-expenditure"
-              onClick={(e) => targetFilter(0, e)}
+              onClick={(e) => targetFilter(e, -2)}
             >
               지출
             </button>
