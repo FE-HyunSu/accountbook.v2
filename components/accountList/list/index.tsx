@@ -5,6 +5,7 @@ import { getData, setData } from "../../../firebase/firestore";
 
 export type memberListInit = {
   id: number;
+  userId: number;
   userName?: string;
   imgUrl?: string;
 };
@@ -27,11 +28,11 @@ const AccountList = () => {
 
   // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
-    let getUserList: Array<memberListInit> = [];
-    let getAccountList: Array<accountListInit> = [];
+    let getUserList: Array<any> = [];
+    let getAccountList: Array<any> = [];
     await getData("userList").then((data) => {
       getUserList = data.docs.map((item: any) => {
-        return { ...item.data(), id: item.id };
+        return { ...item.data() };
       });
       setMemberListAll(getUserList);
     });
@@ -89,12 +90,10 @@ const AccountList = () => {
   };
 
   // userId 값으로, 해당 user의 이름을 return 합니다.
-  const returnUserName = (userId: number) => {
-    let returnName: string | undefined = "(이름없음)";
-    memberList.forEach((item: memberListInit) => {
-      if (Number(item.id) === userId) returnName = item.userName;
-    });
-    return returnName;
+  const returnUserName = (targetUserId: number) => {
+    return memberList.filter((item: any) => {
+      return item.userId === targetUserId;
+    })[0]?.userName;
   };
 
   // countEffect 함수.
@@ -157,7 +156,7 @@ const AccountList = () => {
                       backgroundImage: `url(${item.userImg})`,
                       animationDelay: idx * 0.07 + `s`,
                     }}
-                    onClick={(e) => targetFilter(item.id, e)}
+                    onClick={(e) => targetFilter(item.userId, e)}
                   >
                     {item.userName}
                   </button>
@@ -186,9 +185,12 @@ const AccountList = () => {
                   <li key={idx}>
                     <AccountItem
                       dateTime={item.dateTime}
-                      accountName={returnUserName(item.targetId)}
+                      contents={
+                        returnUserName(item.targetId) === undefined
+                          ? item.description
+                          : returnUserName(item.targetId)
+                      }
                       price={item.calculation}
-                      description={item.description}
                       itemIndex={idx}
                     />
                   </li>

@@ -4,19 +4,12 @@ import useIntersectionObserver from "../../../hooks/useIntersectionObserver";
 
 interface Props {
   dateTime: string;
-  accountName: string;
+  contents: string;
   price: number;
-  description: string;
   itemIndex: number;
 }
 
-const AccountItem = ({
-  dateTime,
-  accountName,
-  price,
-  description,
-  itemIndex,
-}: Props) => {
+const AccountItem = ({ dateTime, contents, price, itemIndex }: Props) => {
   const itemRef = useRef<HTMLDListElement | null>(null); // 타겟 ref 선언.
   const entry = useIntersectionObserver(itemRef, {}); // import 한 useIntersectionObserver 함수에, ref와 빈 객체를 인자로 담는다.(기본값으로 적용하겠다는 의미) { threshold = 0, root = null, rootMargin = '0%', freezeOnceVisible = false }
   const isVisible = !!entry?.isIntersecting; // isIntersecting 값으로 노출 여부 판단.
@@ -44,7 +37,7 @@ const AccountItem = ({
       >
         <dt>
           <span>{shortDate(dateTime.split(" ")[0])}</span>
-          <strong>{Number(price) > 0 ? accountName : description}</strong>
+          <strong>{contents}</strong>
         </dt>
         <dd className={Number(price) > 0 ? `plus` : `minus`}>
           {addComa(price)}
