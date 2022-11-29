@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
 import AccountItem from "../item/index";
 import { SectionBox } from "./style";
-import { getData, setData } from "../../../firebase/firestore";
+import { getData } from "../../../firebase/firestore";
 
-export type memberListInit = {
+interface memberListInit {
   id: number;
   userId: number;
   userName?: string;
   imgUrl?: string;
-};
+}
 
-export type accountListInit = {
+interface accountListInit {
   targetId: number;
   dateTime: string;
   description?: string;
   calculation: number;
-};
+}
 
 const AccountList = () => {
   const [memberListAll, setMemberListAll] = useState<memberListInit[]>([]);
