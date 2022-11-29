@@ -28,8 +28,8 @@ const AccountList = () => {
 
   // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
-    let getUserList: Array<any> = [];
-    let getAccountList: Array<any> = [];
+    let getUserList: Array<memberListInit> = [];
+    let getAccountList: Array<accountListInit> = [];
     await getData("userList").then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data() };
@@ -44,8 +44,8 @@ const AccountList = () => {
       setAccountListAll(getAccountList);
     });
 
-    setMemberList(getUserList); // userList set.
-    setAccountList(getAccountList); // accountList set.
+    setMemberList(getUserList);
+    setAccountList(getAccountList);
     totalPriceCalculation(getUserList, getAccountList);
     setAllCheck(true);
   };
@@ -98,7 +98,7 @@ const AccountList = () => {
 
   // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (targetUserId: number) => {
-    return memberList.filter((item: any) => {
+    return memberList.filter((item: memberListInit) => {
       return item.userId === targetUserId;
     })[0]?.userName;
   };
@@ -120,18 +120,23 @@ const AccountList = () => {
   };
 
   // total 잔액을 표기하는 함수.
-  const totalPriceCalculation = (user: object, account: any) => {
+  const totalPriceCalculation = (
+    user: object,
+    account: Array<accountListInit>
+  ) => {
     let returnPrice: number = 0;
-    account.forEach((item: any) => (returnPrice += Number(item.calculation)));
+    account.forEach(
+      (item: accountListInit) => (returnPrice += Number(item.calculation))
+    );
     countEffect(returnPrice);
     setNbbang(addComa(returnPrice / Object.keys(user).length));
   };
 
   // target 잔액을 표기하는 함수.
-  const priceCalculation = (filterAccountList: any) => {
+  const priceCalculation = (filterAccountList: Array<accountListInit>) => {
     let returnPrice = 0;
     filterAccountList.forEach(
-      (item: any) => (returnPrice += Number(item.calculation))
+      (item: accountListInit) => (returnPrice += Number(item.calculation))
     );
     countEffect(returnPrice);
   };
