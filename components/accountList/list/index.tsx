@@ -2,13 +2,8 @@ import React, { useState, useEffect } from "react";
 import AccountItem from "../item/index";
 import { SectionBox } from "./style";
 import { getData } from "../../../firebase/firestore";
-
-interface memberListInit {
-  id: number;
-  userId: number;
-  userName?: string;
-  imgUrl?: string;
-}
+import { userData } from "../../../store";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 interface accountListInit {
   targetId: number;
@@ -18,22 +13,21 @@ interface accountListInit {
 }
 
 const AccountList = () => {
-  const [memberListAll, setMemberListAll] = useState<memberListInit[]>([]);
-  const [memberList, setMemberList] = useState<memberListInit[]>([]);
   const [accountList, setAccountList] = useState<accountListInit[]>([]);
   const [accountListAll, setAccountListAll] = useState<accountListInit[]>([]);
   const [totalPrice, setTotalPrice] = useState<string>("0");
   const [nbbang, setNbbang] = useState<string>("0");
   const [allCheck, setAllCheck] = useState<boolean>(true);
+  const [userList, setUserList] = useRecoilState(userData);
+  const userListData = useRecoilValue(userData);
 
   const getUserListData = () => {
-    let getUserList: Array<memberListInit> = [];
+    let getUserList: any = [];
     getData("userList").then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data() };
       });
-      setMemberListAll(getUserList);
-      setMemberList(getUserList);
+      setUserList(getUserList);
     });
   };
 
@@ -45,15 +39,14 @@ const AccountList = () => {
       });
       setAccountListAll(getAccountList);
       setAccountList(getAccountList);
+      totalPriceCalculation(getAccountList);
       setAllCheck(true);
     });
   };
 
-  // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
   const getListAll = async () => {
     await getUserListData(), console.log(getUserListData());
     await getAccountListData();
-    await totalPriceCalculation(memberList, accountList);
   };
 
   // memberList click effect.
@@ -75,14 +68,14 @@ const AccountList = () => {
     setTimeout(() => {
       if (filterId === -1) {
         setAccountList(accountListAll);
-        totalPriceCalculation(memberList, accountListAll);
+        totalPriceCalculation(accountListAll);
         setAllCheck(true);
       } else if (filterId === -2) {
         const returnList = accountListAll.filter((item: accountListInit) => {
           return item.targetId === undefined;
         });
         setAccountList(returnList);
-        totalPriceCalculation(memberList, returnList);
+        totalPriceCalculation(returnList);
         setAllCheck(false);
       } else {
         const returnList = accountListAll.filter((item: accountListInit) => {
@@ -103,7 +96,7 @@ const AccountList = () => {
 
   // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (targetUserId: number) => {
-    return memberList.filter((item: memberListInit) => {
+    return userListData.filter((item) => {
       return item.userId === targetUserId;
     })[0]?.userName;
   };
@@ -124,20 +117,15 @@ const AccountList = () => {
     }, 16);
   };
 
-  // total 잔액을 표기하는 함수.
-  const totalPriceCalculation = (
-    user: object,
-    account: Array<accountListInit>
-  ) => {
+  const totalPriceCalculation = (account: Array<accountListInit>) => {
     let returnPrice: number = 0;
     account.forEach(
       (item: accountListInit) => (returnPrice += Number(item.calculation))
     );
     countEffect(returnPrice);
-    setNbbang(addComa(returnPrice / Object.keys(user).length));
+    setNbbang(addComa(returnPrice / Object.keys(userListData).length));
   };
 
-  // target 잔액을 표기하는 함수.
   const priceCalculation = (filterAccountList: Array<accountListInit>) => {
     let returnPrice = 0;
     filterAccountList.forEach(
@@ -164,8 +152,8 @@ const AccountList = () => {
             >
               all
             </button>
-            {memberList &&
-              memberList.map((item: any, idx: number) => {
+            {userListData &&
+              userListData.map((item: any, idx: number) => {
                 return (
                   <button
                     key={idx}
