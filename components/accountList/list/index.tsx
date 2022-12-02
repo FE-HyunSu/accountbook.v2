@@ -45,11 +45,10 @@ const AccountList = () => {
   };
 
   const getListAll = async () => {
-    await getUserListData(), console.log(getUserListData());
+    await getUserListData();
     await getAccountListData();
   };
 
-  // memberList click effect.
   const btnActive = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const btnGroup = e.currentTarget.parentNode;
     btnGroup?.querySelectorAll("button").forEach((item) => {
@@ -58,7 +57,6 @@ const AccountList = () => {
     e.currentTarget.classList.add("active");
   };
 
-  // member id로 account 목록을 filter 하는 함수.
   const targetFilter = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     filterId: number
@@ -87,21 +85,18 @@ const AccountList = () => {
     }, 16);
   };
 
-  // 금액 단위로 숫자를 콤마 찍어서 return.
   const addComa = (number: number) => {
     const numberComa = number.toString().split(".");
     numberComa[0] = numberComa[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return numberComa.join(".");
   };
 
-  // userId 값으로, 해당 user의 이름을 return 합니다.
   const returnUserName = (targetUserId: number) => {
     return userListData.filter((item) => {
       return item.userId === targetUserId;
     })[0]?.userName;
   };
 
-  // countEffect 함수.
   const countEffect = (num: number) => {
     let viewCount = 0;
     let gap = (num / 30) * (num > 0 ? 1 : -1);
@@ -153,6 +148,7 @@ const AccountList = () => {
               all
             </button>
             {userListData &&
+              userListData[0].userId !== undefined &&
               userListData.map((item: any, idx: number) => {
                 return (
                   <button
