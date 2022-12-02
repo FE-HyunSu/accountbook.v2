@@ -26,28 +26,34 @@ const AccountList = () => {
   const [nbbang, setNbbang] = useState<string>("0");
   const [allCheck, setAllCheck] = useState<boolean>(true);
 
-  // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
-  const getListAll = async () => {
+  const getUserListData = () => {
     let getUserList: Array<memberListInit> = [];
-    let getAccountList: Array<accountListInit> = [];
-    await getData("userList").then((data) => {
+    getData("userList").then((data) => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data() };
       });
       setMemberListAll(getUserList);
+      setMemberList(getUserList);
     });
+  };
 
-    await getData("accountList").then((data) => {
+  const getAccountListData = () => {
+    let getAccountList: Array<accountListInit> = [];
+    getData("accountList").then((data) => {
       getAccountList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
       });
       setAccountListAll(getAccountList);
+      setAccountList(getAccountList);
+      setAllCheck(true);
     });
+  };
 
-    setMemberList(getUserList);
-    setAccountList(getAccountList);
-    totalPriceCalculation(getUserList, getAccountList);
-    setAllCheck(true);
+  // 최초 모든 정보를 상태값에 저장. (멤버, 입출금 이력)
+  const getListAll = async () => {
+    await getUserListData(), console.log(getUserListData());
+    await getAccountListData();
+    await totalPriceCalculation(memberList, accountList);
   };
 
   // memberList click effect.
@@ -84,7 +90,6 @@ const AccountList = () => {
         });
         setAccountList(returnList);
         priceCalculation(returnList);
-        setAllCheck(false);
       }
     }, 16);
   };
