@@ -44,6 +44,9 @@ const Header = () => {
         : "#ffa5ac"
     );
   }, []);
+  useEffect(() => {
+    history.pushState(null, "", router.pathname);
+  }, [isThemeColor]);
   return (
     <>
       <HeaderBox>
