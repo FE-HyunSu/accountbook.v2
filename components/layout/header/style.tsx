@@ -53,7 +53,7 @@ export const HeaderBox = styled.header`
     padding: 0.8rem 1.2rem;
     font-weight: 400;
     font-size: 1.2rem;
-    color: #cd5c5c;
+    color: rgba(0, 0, 0, 0.3);
     text-decoration: none;
     border-radius: 0.4rem;
   }

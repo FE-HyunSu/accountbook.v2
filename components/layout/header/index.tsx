@@ -17,6 +17,10 @@ const Header = () => {
       name: "yellow",
       colorCode: "#f8d346",
     },
+    {
+      name: "gray",
+      colorCode: "#bcbcbc",
+    },
   ];
   const themeChange = (colorCode: string) => {
     setThemeColor(colorCode);
