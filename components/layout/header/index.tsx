@@ -3,8 +3,10 @@ import { useRecoilState } from "recoil";
 import { themeColor } from "../../../store";
 import { useCookies } from "react-cookie";
 import { HeaderBox, BtnThemeColor } from "./style";
+import { useRouter } from "next/router";
 
 const Header = () => {
+  const router = useRouter();
   const [isThemeColor, setThemeColor] = useRecoilState(themeColor);
   const [cookies, setCookie, removeCookie] = useCookies(["themeCode"]);
   const themeList = [
@@ -29,10 +31,17 @@ const Header = () => {
     setThemeColor(colorCode);
     setCookie("themeCode", colorCode);
   };
-
+  const paramCheck = (key: string) => {
+    const themeParam = router.asPath;
+    return themeParam.split(key + `=`)[1]?.split("&")[0];
+  };
   useEffect(() => {
     setThemeColor(
-      cookies.themeCode === undefined ? "#ffa5ac" : cookies.themeCode
+      paramCheck("themeCode") !== undefined
+        ? paramCheck("themeCode")
+        : cookies.themeCode !== undefined
+        ? cookies.themeCode
+        : "#ffa5ac"
     );
   }, []);
   return (
@@ -51,7 +60,14 @@ const Header = () => {
                 </BtnThemeColor>
               ))}
           </strong>
-          <a href="https://reliable-florentine-21f16f.netlify.app">ADMIN</a>
+          <a
+            href={
+              `https://reliable-florentine-21f16f.netlify.app?themeCode=` +
+              isThemeColor
+            }
+          >
+            ADMIN
+          </a>
         </h1>
       </HeaderBox>
     </>
