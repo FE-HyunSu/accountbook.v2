@@ -1,4 +1,5 @@
 import styled, { keyframes } from "styled-components";
+import { themeColorSet } from "../../../styles/theme";
 
 const UserIconMotion = keyframes`
   0%{width:.1rem; height:.1rem;}
@@ -10,8 +11,9 @@ export const SectionBox = styled.section`
   position: relative;
   .total-price {
     padding: 5rem 0 7rem;
-    background-color: #ffa5ac;
+    background-color: ${themeColorSet};
     text-align: center;
+    transition: 0.3s;
     strong {
       display: inline-block;
       padding-bottom: 0.5rem;
