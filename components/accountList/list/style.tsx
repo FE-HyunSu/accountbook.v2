@@ -36,7 +36,7 @@ export const SectionBox = styled.section`
       height: 4.2rem;
       margin-top: -1rem;
       padding-bottom: 1rem;
-      transition: 0.4s;
+      transition: 0.3s;
     }
     em {
       display: block;
@@ -75,7 +75,7 @@ export const SectionBox = styled.section`
       border-radius: 100%;
       text-indent: -999rem;
       border: 0rem solid #fff;
-      transition: 0.2s;
+      transition: 0.3s;
       animation: ${UserIconMotion} 0.5s forwards;
       opacity: 1;
       &.active {

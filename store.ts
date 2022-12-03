@@ -19,5 +19,5 @@ export const updateCheckState = atom({
 
 export const themeColor = atom({
   key: "themeColor",
-  default: "#ffa5ac",
+  default: "#fff",
 });

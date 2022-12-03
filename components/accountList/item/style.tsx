@@ -12,7 +12,7 @@ export const AccountCard = styled.dl`
   width: 100%;
   border-top: 1px solid #f4f4f4;
   font-size: 1.4rem;
-  transition: 0.2s;
+  transition: 0.3s;
   box-sizing: border-box;
   &.active {
     animation: ${viewMotion} 0.3s forwards linear alternate;

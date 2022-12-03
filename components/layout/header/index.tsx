@@ -1,9 +1,12 @@
-import { HeaderBox, BtnThemeColor } from "./style";
+import React, { useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { themeColor } from "../../../store";
+import { useCookies } from "react-cookie";
+import { HeaderBox, BtnThemeColor } from "./style";
 
 const Header = () => {
   const [isThemeColor, setThemeColor] = useRecoilState(themeColor);
+  const [cookies, setCookie, removeCookie] = useCookies(["themeCode"]);
   const themeList = [
     {
       name: "pink",
@@ -24,8 +27,14 @@ const Header = () => {
   ];
   const themeChange = (colorCode: string) => {
     setThemeColor(colorCode);
+    setCookie("themeCode", colorCode);
   };
 
+  useEffect(() => {
+    setThemeColor(
+      cookies.themeCode === undefined ? "#ffa5ac" : cookies.themeCode
+    );
+  }, []);
   return (
     <>
       <HeaderBox>
