@@ -9,6 +9,9 @@
 - 카뱅 UI를 참고함.
 - 기존 react nextjs로 작업했던 Accountbook를 project를 Typescript 버전으로 migration.
 
+### 🛩 금번 프로젝트에서 경험 하고싶은 주요 기능.
+- Firebase Firestore를 통한 Database 연동.
+
 ### 🪬 내용
 
 - Intersection Observer API.
