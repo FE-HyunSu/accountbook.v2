@@ -17,6 +17,7 @@ const AccountList = () => {
   const [accountListAll, setAccountListAll] = useState<accountListInit[]>([]);
   const [totalPrice, setTotalPrice] = useState<string>("0");
   const [nbbang, setNbbang] = useState<string>("0");
+  const [userCount, setUserCount] = useState<number>(0);
   const [allCheck, setAllCheck] = useState<boolean>(true);
   const [userList, setUserList] = useRecoilState(userData);
   const userListData = useRecoilValue(userData);
@@ -27,6 +28,7 @@ const AccountList = () => {
       getUserList = data.docs.map((item: any) => {
         return { ...item.data() };
       });
+      setUserCount(getUserList.length);
       setUserList(getUserList);
     });
   };
@@ -81,6 +83,7 @@ const AccountList = () => {
         });
         setAccountList(returnList);
         priceCalculation(returnList);
+        setAllCheck(false);
       }
     }, 16);
   };
@@ -118,7 +121,7 @@ const AccountList = () => {
       (item: accountListInit) => (returnPrice += Number(item.calculation))
     );
     countEffect(returnPrice);
-    setNbbang(addComa(returnPrice / Object.keys(userListData).length));
+    setNbbang(addComa(returnPrice / userCount));
   };
 
   const priceCalculation = (filterAccountList: Array<accountListInit>) => {
