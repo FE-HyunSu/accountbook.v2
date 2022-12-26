@@ -134,7 +134,7 @@ const AccountList = () => {
 
   useEffect(() => {
     getListAll();
-  }, []);
+  }, [nbbang]);
 
   return (
     <>
