@@ -41,6 +41,7 @@ export const AccountCard = styled.dl`
     }
     span {
       display: inline-block;
+      min-width: 3.5rem;
       padding-right: 1.5rem;
       font-weight: 500;
       font-size: 1.2rem;
