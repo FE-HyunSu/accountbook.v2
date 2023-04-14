@@ -4,6 +4,7 @@ import { SectionBox } from "./style";
 import { getData } from "../../../firebase/firestore";
 import { userData } from "../../../store";
 import { useRecoilState, useRecoilValue } from "recoil";
+import Loading from "../../Loading";
 
 interface accountListInit {
   targetId: number;
@@ -21,6 +22,7 @@ const AccountList = () => {
   const [allCheck, setAllCheck] = useState<boolean>(true);
   const [userList, setUserList] = useRecoilState(userData);
   const userListData = useRecoilValue(userData);
+  const [isLoading, setLoading] = useState<boolean>(true);
 
   const getUserListData = () => {
     let getUserList: any = [];
@@ -49,6 +51,7 @@ const AccountList = () => {
   const getListAll = async () => {
     await getUserListData();
     await getAccountListData();
+    setLoading(false);
   };
 
   const btnActive = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -59,12 +62,13 @@ const AccountList = () => {
     e.currentTarget.classList.add("active");
   };
 
-  const targetFilter = (
+  const targetFilter = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     filterId: number
   ) => {
+    setLoading(true);
     btnActive(e);
-    setAccountList([]);
+    await setAccountList([]);
     setTimeout(() => {
       if (filterId === -1) {
         setAccountList(accountListAll);
@@ -72,10 +76,10 @@ const AccountList = () => {
         setAllCheck(true);
       } else if (filterId === -2) {
         const returnList = accountListAll.filter((item: accountListInit) => {
-          return item.targetId === undefined;
+          return item.calculation < 0;
         });
         setAccountList(returnList);
-        totalPriceCalculation(returnList);
+        totalPriceCalculation(accountListAll);
         setAllCheck(false);
       } else {
         const returnList = accountListAll.filter((item: accountListInit) => {
@@ -85,6 +89,7 @@ const AccountList = () => {
         priceCalculation(returnList);
         setAllCheck(false);
       }
+      setLoading(false);
     }, 16);
   };
 
@@ -178,7 +183,10 @@ const AccountList = () => {
       </SectionBox>
       <SectionBox>
         <ul>
-          {accountList &&
+          {isLoading && isLoading ? (
+            <Loading />
+          ) : (
+            accountList &&
             accountList
               .sort(
                 (a: any, b: any) =>
@@ -199,7 +207,8 @@ const AccountList = () => {
                     />
                   </li>
                 );
-              })}
+              })
+          )}
         </ul>
       </SectionBox>
     </>
