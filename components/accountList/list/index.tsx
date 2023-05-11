@@ -6,7 +6,7 @@ import { userData } from "../../../store";
 import { useRecoilState, useRecoilValue } from "recoil";
 import Loading from "../../Loading";
 
-interface accountListInit {
+interface accountListT {
   targetId: number;
   dateTime: string;
   description?: string;
@@ -14,8 +14,8 @@ interface accountListInit {
 }
 
 const AccountList = () => {
-  const [accountList, setAccountList] = useState<accountListInit[]>([]);
-  const [accountListAll, setAccountListAll] = useState<accountListInit[]>([]);
+  const [accountList, setAccountList] = useState<accountListT[]>([]);
+  const [accountListAll, setAccountListAll] = useState<accountListT[]>([]);
   const [totalPrice, setTotalPrice] = useState<string>("0");
   const [nbbang, setNbbang] = useState<string>("0");
   const [userCount, setUserCount] = useState<number>(0);
@@ -27,7 +27,7 @@ const AccountList = () => {
   const getUserListData = () => {
     let getUserList: any = [];
     getData("userList").then((data) => {
-      getUserList = data.docs.map((item: any) => {
+      getUserList = data.docs.map((item) => {
         return { ...item.data() };
       });
       setUserCount(getUserList.length);
@@ -36,7 +36,7 @@ const AccountList = () => {
   };
 
   const getAccountListData = () => {
-    let getAccountList: Array<accountListInit> = [];
+    let getAccountList: Array<accountListT> = [];
     getData("accountList").then((data) => {
       getAccountList = data.docs.map((item: any) => {
         return { ...item.data(), id: item.id };
@@ -75,14 +75,14 @@ const AccountList = () => {
         totalPriceCalculation(accountListAll);
         setAllCheck(true);
       } else if (filterId === -2) {
-        const returnList = accountListAll.filter((item: accountListInit) => {
+        const returnList = accountListAll.filter((item: accountListT) => {
           return item.calculation < 0;
         });
         setAccountList(returnList);
         totalPriceCalculation(accountListAll);
         setAllCheck(false);
       } else {
-        const returnList = accountListAll.filter((item: accountListInit) => {
+        const returnList = accountListAll.filter((item: accountListT) => {
           return item.targetId === Number(filterId);
         });
         setAccountList(returnList);
@@ -120,19 +120,19 @@ const AccountList = () => {
     }, 16);
   };
 
-  const totalPriceCalculation = (account: Array<accountListInit>) => {
+  const totalPriceCalculation = (account: Array<accountListT>) => {
     let returnPrice: number = 0;
     account.forEach(
-      (item: accountListInit) => (returnPrice += Number(item.calculation))
+      (item: accountListT) => (returnPrice += Number(item.calculation))
     );
     countEffect(returnPrice);
     setNbbang(addComa(returnPrice / userCount));
   };
 
-  const priceCalculation = (filterAccountList: Array<accountListInit>) => {
+  const priceCalculation = (filterAccountList: Array<accountListT>) => {
     let returnPrice = 0;
     filterAccountList.forEach(
-      (item: accountListInit) => (returnPrice += Number(item.calculation))
+      (item: accountListT) => (returnPrice += Number(item.calculation))
     );
     countEffect(returnPrice);
   };
@@ -188,10 +188,7 @@ const AccountList = () => {
           ) : (
             accountList &&
             accountList
-              .sort(
-                (a: any, b: any) =>
-                  +new Date(b.dateTime) - +new Date(a.dateTime)
-              )
+              .sort((a, b) => +new Date(b.dateTime) - +new Date(a.dateTime))
               .map((item: any, idx: number) => {
                 return (
                   <li key={idx}>
